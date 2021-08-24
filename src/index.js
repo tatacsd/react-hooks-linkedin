@@ -1,20 +1,38 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
+import { FaStar } from "react-icons/fa";
 
-function App() {
-  const [checked, setChecked] = useState(false);
+const createArray = (length) => [...Array(length)];
+
+// pass the color of the stars
+function Star({ selected = false, onSelect }) {
+  return <FaStar color={selected ? "red" : "grey"} onClick={onSelect} />;
+}
+
+// if not pass use 5 as default
+function StarRating({ totalStars = 5 }) {
+  // handle the selected stars
+  const [selectedStars, setSelectedStars] = useState(0);
 
   return (
-    <div>
-      <input
-        type="checkbox"
-        value={checked}
-        onChange={() => setChecked((checked) => !checked)}
-      />
-      <p>{checked ? "checked" : "not checked"}</p>
-    </div>
+    <>
+      {createArray(totalStars).map((n, index) => (
+        <Star
+          key={index}
+          selected={selectedStars > index}
+          onSelect={() => setSelectedStars(index + 1)}
+        />
+      ))}
+      <p>
+        {selectedStars} of {totalStars}
+      </p>
+    </>
   );
+}
+
+function App() {
+  return <StarRating totalStars={5} />;
 }
 
 ReactDOM.render(
