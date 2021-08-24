@@ -1,18 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 
 function App() {
-  // the useState will return two fields
-  // 0: undefined 1: a function
-  // const result = useState();
+  const [name, setName] = useState("Will");
 
-  const [status, setStatus] = useState("Not Delivered");
+  // useEffect takes a function and
+  // it runs after each update
+  useEffect(() => {
+    // change the document title
+    document.title = `Celebrate ${name}`;
+  });
 
   return (
     <div>
-      <h1>The package is: {status}.</h1>
-      <button onClick={() => setStatus("Delivered")}>Deliver</button>
+      <h1>Congratulations {name}!</h1>
+      <button onClick={() => setName("John")}>Change Winner</button>
     </div>
   );
 }
